@@ -1,0 +1,75 @@
+#include <stdbool.h>
+    #include <time.h>
+    #include <sys/mman.h>
+    #include <sys/stat.h>
+    #include <fcntl.h>
+    #include <unistd.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <errno.h>
+    #include <string.h>
+
+    #include "shm.h"
+
+    char * getTimeStamp() {
+        time_t ltime = time(NULL);
+        return strtok(ctime(&ltime), "n");
+    }
+
+    int createSHM(char * shname)
+    {
+     if ((shmid = shmget(key, sizeof(msg), IPC_CREAT)) < 0) {
+    perror("shmget");
+    exit(1);
+    }
+
+    int loadSHM(char * shname)
+    {
+
+ if (shname< 0)
+ {
+ printf("shmget errorn");
+ exit(1);
+ }
+    }
+
+
+    SHMstruct * accessSHM(int fd) {
+
+    }
+
+
+    SHMstruct * initSHM(int fd, SHMstruct *data) {
+
+    }
+
+
+    void clearSHM(SHMstruct * shm)
+    {
+    int status = munmap(shm, sizeof(SHMstruct));
+    if (status ==-1){
+    fprintf(stderr, "Failure in clearSHM",strerror(errno));
+    exit(errno);
+
+    }
+
+
+    void closeSHM(int fd)
+    {
+    int status = close(fd);
+    if (status ==-1){
+    fprintf(stderr, "Failure in closeSHM",strerror(errno));
+    exit(errno);
+    }
+    }
+
+
+    void destroySHM(char * shname)
+    {
+    int status = shm_unlink (shname);
+    if (status ==-1){
+    fprintf(stderr, "Failure in destroySHM",strerror(errno));
+    exit(errno);
+    }
+    }
+   
